@@ -21,7 +21,7 @@ export default function Form(props) {
 
   return (
     <form onSubmit={onSubmit}>  
-        <div >
+        <div className='form-div' >
         <h2>Add a New Team Member</h2>
         <button disabled={!values.username || !values.email || !values.role ? true : false}>Submit</button>
         </div>
@@ -56,10 +56,10 @@ export default function Form(props) {
                 Role:&nbsp;
                 <select onChange={onChange} value={values.role} name='role'>
                     <option value=''>Select a role</option>
-                    <option value='front-end'>Front End Engineer</option>
-                    <option value='back-end'>Back End Engineer</option>
-                    <option value='ux'>UX Designer</option>
-                    <option value='full-stack'>Full Stack Engineer</option>
+                    <option value='Front-end'>Front End Engineer</option>
+                    <option value='Back-end'>Back End Engineer</option>
+                    <option value='UX'>UX Designer</option>
+                    <option value='Full-stack'>Full Stack Engineer</option>
                 </select>
 
             </label>

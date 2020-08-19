@@ -1,5 +1,33 @@
 .App {
   text-align: center;
 }
+*{
+  background-color: black;
+  color: white;
+}
+
+.form-div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-flow: column wrap;
+
+}
+
+form input {
+  margin: 1%;
+}
+
+.form-div button {
+  margin: 1%;
+  padding: 1%;
+  border-radius: 15%;
+  border: 2px solid white;
+}
+
+.team-member {
+  margin: 2%;
+  border: 2px solid white;
+}
 
 
