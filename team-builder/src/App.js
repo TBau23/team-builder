@@ -1,10 +1,18 @@
-import React, {useState} from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
+import { v4 as uuid} from 'uuid'
 import './App.css';
 import Form from './Form'
 import TeamMember from './TeamMember'
 
 
+const initialTeamList = [
+  {
+    id: uuid(),
+    username: 'Giovanni',
+    email: 'gio@vanni.com',
+    role: 'Front End Engineer'
+  },
+]
 
 const initialFormValues = {
   username: '',
@@ -12,9 +20,16 @@ const initialFormValues = {
   role: '',
 }
 
+const fakeAxiosGet = () => {
+  return Promise.resolve({ status: 200, success: true, data: initialTeamList })
+}
+const fakeAxiosPost = (url, { username, email, role }) => {
+  const newTeamMember = { id: uuid(), username, email, role }
+  return Promise.resolve({ status: 200, success: true, data: newTeamMember })
+}
 
 
-function App() {
+export default function App() {
   const [teamMembers, setTeamMembers] = useState([])
   const [formValues, setFormValues] = useState(initialFormValues)
 
@@ -36,7 +51,28 @@ function App() {
     if (!teamMember.username || !teamMember.email) {
       return // using return singularly is good way to quickly short circuit a function
     }
-  }
+
+    fakeAxiosPost('fake.com', teamMember)
+      .then(res => {
+        
+        setTeamMembers([res.data, ...teamMembers ]) //replace with all friends of old array ()
+      })
+      .catch(err => {
+        debugger
+      })
+      .finally(() => {
+        setFormValues(initialFormValues)
+      })
+      
+    }
+  
+
+useEffect(() => {
+  fakeAxiosGet('fakeapi.com').then(res => setTeamMembers(res.data))
+  submitForm()
+}, [])
+
+
 
   return (
     <div className="App">
@@ -47,10 +83,16 @@ function App() {
       submit={submitForm}
       />
 
-      
+      {teamMembers.map(member => {
+        return(
+          <TeamMember details={member} />
+        )
+      })}
+
+
 
     </div>
   );
 }
 
-export default App;
+
